@@ -1,0 +1,499 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#071316">
+<title>Partido Punhético Academy</title>
+<style>
+:root{
+ --bg:#071316;--card:#0e2226;--cyan:#43dce0;
+ --green:#66e6ad;--text:#effbf8;--muted:#9ab4b2;
+ --line:rgba(151,220,211,.14)
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+ background:radial-gradient(ellipse at 80% -10%,#17413d55,transparent 40%),var(--bg);
+ color:var(--text);font-family:Inter,Arial,sans-serif
+}
+button,input{font:inherit}
+.shell{width:min(1400px,92%);margin:auto}
+header{
+ height:76px;display:flex;align-items:center;justify-content:space-between;
+ padding:0 4%;position:sticky;top:0;z-index:20;
+ background:#071316ed;backdrop-filter:blur(18px);
+ border-bottom:1px solid var(--line)
+}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:white}
+.brand-icon{
+ width:42px;height:42px;display:grid;place-items:center;border-radius:13px;
+ color:#052023;font-size:23px;font-weight:1000;
+ background:linear-gradient(135deg,var(--cyan),var(--green))
+}
+.brand-name{font-size:14px;font-weight:900}
+.brand-sub{display:block;color:var(--muted);font-size:9px;letter-spacing:2px;margin-top:4px}
+nav{display:flex;gap:25px}
+nav a{text-decoration:none;color:#b9ceca;font-size:13px;transition:.2s}
+nav a:hover{color:var(--green)}
+.header-right{display:flex;align-items:center;gap:12px}
+.search{
+ width:190px;padding:11px;border-radius:10px;border:1px solid var(--line);
+ outline:none;background:#102327;color:white
+}
+.search:focus{border-color:var(--cyan)}
+.avatar{
+ width:37px;height:37px;display:grid;place-items:center;border-radius:50%;
+ color:#052023;font-weight:900;background:linear-gradient(135deg,var(--cyan),var(--green))
+}
+.hero{
+ margin:30px 0 48px;min-height:440px;border-radius:24px;overflow:hidden;
+ display:flex;align-items:center;border:1px solid var(--line);
+ background:
+ linear-gradient(90deg,#051114 0%,#051114e8 43%,#05111440 100%),
+ url("https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?auto=format&fit=crop&w=1800&q=85") center/cover
+}
+.hero-content{max-width:680px;padding:50px}
+.eyebrow{color:var(--green);font-size:11px;font-weight:900;letter-spacing:3px}
+.hero h1{font-size:clamp(38px,5vw,65px);line-height:1;letter-spacing:-2.5px;margin:20px 0}
+.gradient{color:var(--cyan)}
+.hero p{max-width:510px;color:#bfd0cd;font-size:14px;line-height:1.8}
+.meta{margin:23px 0;display:flex;flex-wrap:wrap;gap:9px}
+.meta span{
+ background:#10272bc9;border:1px solid var(--line);padding:8px 10px;
+ border-radius:7px;color:#b8d4ce;font-size:9px;font-weight:800
+}
+.buttons{display:flex;flex-wrap:wrap;gap:12px}
+.btn{
+ border:0;cursor:pointer;border-radius:10px;padding:13px 18px;
+ font-size:12px;font-weight:850;text-decoration:none;transition:.2s
+}
+.btn:hover{transform:translateY(-2px)}
+.primary{background:linear-gradient(110deg,var(--cyan),var(--green));color:#052023}
+.secondary{background:#193237;color:white;border:1px solid var(--line)}
+.section{margin:48px 0}
+.section-header{
+ display:flex;justify-content:space-between;align-items:end;
+ margin-bottom:20px;gap:15px
+}
+.section h2{font-size:22px;letter-spacing:-.6px}
+.subtitle{margin-top:6px;color:var(--muted);font-size:12px}
+.see-all{color:var(--cyan);font-size:11px;font-weight:900;text-decoration:none}
+.filters{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:23px}
+.filter{
+ padding:9px 14px;border-radius:30px;border:1px solid var(--line);
+ background:#102327;color:#b9ceca;font-size:11px;cursor:pointer
+}
+.filter.active,.filter:hover{background:#17413c;border-color:var(--green);color:#baffdf}
+.course-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:17px}
+.course{
+ overflow:hidden;border-radius:15px;border:1px solid var(--line);
+ background:linear-gradient(160deg,#10272b,#0a1b1e);transition:.25s
+}
+.course:hover{
+ transform:translateY(-5px);border-color:#43dce080;
+ box-shadow:0 18px 35px #0005
+}
+.poster{height:210px;position:relative;overflow:hidden;background:#17434a}
+.poster img{
+ width:100%;height:100%;object-fit:cover;object-position:center 25%;
+ transition:.4s
+}
+.course:hover .poster img{transform:scale(1.05)}
+.poster::after{
+ content:"";position:absolute;inset:40% 0 0;
+ background:linear-gradient(transparent,#071316b8);pointer-events:none
+}
+.tag{
+ position:absolute;top:12px;left:12px;z-index:2;padding:6px 9px;
+ border-radius:6px;background:#071a20e8;border:1px solid #8dd9c655;
+ color:#baffdf;font-size:9px;font-weight:900;letter-spacing:1px
+}
+.favorite{
+ position:absolute;right:11px;top:11px;z-index:3;width:33px;height:33px;
+ border-radius:50%;border:1px solid #ffffff40;background:#071a20e8;
+ color:white;cursor:pointer;font-size:18px
+}
+.favorite.saved{color:#ff83a0}
+.fallback{
+ height:100%;display:grid;place-items:center;color:#baffdf;font-size:60px;
+ font-weight:900;background:radial-gradient(circle,#277a75,#102a31 70%)
+}
+.course-info{padding:14px}
+.course-info h3{font-size:14px;margin-bottom:8px}
+.course-info p{font-size:11px;line-height:1.6;color:var(--muted);min-height:36px}
+.course-footer{
+ margin-top:13px;padding-top:12px;border-top:1px solid var(--line);
+ display:flex;justify-content:space-between;align-items:center;gap:8px;
+ color:#91aaa6;font-size:10px
+}
+.course-footer button{
+ color:var(--cyan);background:none;border:0;cursor:pointer;
+ font-weight:900;font-size:10px
+}
+.empty{display:none;padding:30px 0;color:var(--muted);font-size:13px}
+.progress-card{
+ padding:25px;border-radius:18px;border:1px solid #66e6ad40;
+ background:linear-gradient(110deg,#123331,#10241f);
+ display:flex;justify-content:space-between;align-items:center;gap:25px
+}
+.progress-card h3{font-size:17px;margin-bottom:8px}
+.progress-card p{font-size:12px;color:var(--muted)}
+.progress-right{width:35%;min-width:180px}
+.progress-label{display:flex;justify-content:space-between;margin-bottom:10px;font-size:11px}
+.bar{height:8px;border-radius:20px;background:#244348;overflow:hidden}
+.bar span{display:block;height:100%;width:36%;background:linear-gradient(90deg,var(--cyan),var(--green))}
+.features{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}
+.feature{padding:21px;background:var(--card);border:1px solid var(--line);border-radius:15px}
+.feature-icon{
+ width:38px;height:38px;display:grid;place-items:center;border-radius:11px;
+ background:#17413c;color:var(--green);font-size:19px
+}
+.feature h3{font-size:14px;margin:14px 0 7px}
+.feature p{color:var(--muted);font-size:11px;line-height:1.7}
+footer{border-top:1px solid var(--line);padding:30px 4%;color:#789693;font-size:10px}
+.footer-content{
+ max-width:1400px;margin:auto;display:flex;justify-content:space-between;
+ gap:20px;flex-wrap:wrap
+}
+footer strong{color:#d2e9e4}
+.modal{
+ display:none;position:fixed;inset:0;z-index:50;padding:20px;
+ background:#000b;backdrop-filter:blur(8px);place-items:center
+}
+.modal.open{display:grid}
+.modal-box{
+ width:min(550px,100%);padding:25px;border-radius:18px;
+ background:#0e2428;border:1px solid #66e6ad50;box-shadow:0 25px 80px #0009
+}
+.modal-top{display:flex;justify-content:space-between;align-items:center}
+.modal-top h3{font-size:19px}
+.close{border:0;background:none;color:white;font-size:27px;cursor:pointer}
+.modal-box p{color:#b6ccca;font-size:13px;line-height:1.7;margin:15px 0}
+.episode{
+ margin-top:11px;padding:14px;border-radius:11px;
+ border:1px solid var(--line);background:#132e32;font-size:12px
+}
+.episode span{display:block;color:var(--muted);margin-top:5px}
+.disclaimer{color:#7e9b98!important;font-size:10px!important}
+@media(max-width:1000px){.course-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:700px){
+ .shell{width:92%}
+ header{height:auto;min-height:70px;padding:12px 4%;flex-wrap:wrap;gap:12px}
+ nav{order:3;width:100%;overflow-x:auto;padding:4px 0;gap:20px}
+ nav a{white-space:nowrap}
+ .search{width:140px}
+ .hero{min-height:450px;margin:18px 0 37px;background-position:60% center}
+ .hero-content{padding:27px 23px}
+ .hero h1{font-size:42px}
+ .hero p{font-size:13px}
+ .section h2{font-size:19px}
+ .poster{height:175px}
+ .course-grid{gap:11px}
+ .course-info{padding:11px}
+ .course-info h3{font-size:12px}
+ .course-info p{font-size:10px;min-height:46px}
+ .progress-card{flex-direction:column;align-items:stretch;padding:19px}
+ .progress-right{width:100%}
+ .features{grid-template-columns:1fr}
+}
+@media(max-width:380px){
+ .course-grid{grid-template-columns:1fr}
+ .poster{height:220px}
+ .hero h1{font-size:36px}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <a class="brand" href="#inicio">
+    <div class="brand-icon">P</div>
+    <div>
+      <div class="brand-name">PARTIDO PUNHÉTICO</div>
+      <span class="brand-sub">ACADEMY · APRENDA O JOGO</span>
+    </div>
+  </a>
+
+  <nav>
+    <a href="#inicio">Início</a>
+    <a href="#catalogo">Explorar</a>
+    <a href="#formacao">Minha formação</a>
+  </nav>
+
+  <div class="header-right">
+    <input id="search" class="search" type="search" placeholder="Buscar cursos...">
+    <div class="avatar">A</div>
+  </div>
+</header>
+
+<main class="shell" id="inicio">
+
+<section class="hero">
+  <div class="hero-content">
+    <div class="eyebrow">CONHECIMENTO · PODER · SOCIEDADE</div>
+    <h1>Entenda a política.<br><span class="gradient">Questione ideias.</span></h1>
+    <p>
+      Uma plataforma de formação política para explorar a história,
+      as instituições e as diferentes ideias que influenciam a sociedade.
+    </p>
+    <div class="meta">
+      <span>CURSOS EM EPISÓDIOS</span>
+      <span>DO BÁSICO AO AVANÇADO</span>
+      <span>NO SEU RITMO</span>
+    </div>
+    <div class="buttons">
+      <button class="btn primary" onclick="openCourse('Fundamentos da política')">▶ Começar a estudar</button>
+      <a class="btn secondary" href="#catalogo">＋ Explorar catálogo</a>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="catalogo">
+  <div class="section-header">
+    <div>
+      <h2>Explore o catálogo</h2>
+      <div class="subtitle">Cursos demonstrativos organizados por tema.</div>
+    </div>
+    <a class="see-all" href="#catalogo">VER CATÁLOGO ↗</a>
+  </div>
+
+  <div class="filters">
+    <button class="filter active" data-filter="Todos">Todos</button>
+    <button class="filter" data-filter="Brasil">Política brasileira</button>
+    <button class="filter" data-filter="Mundo">Líderes mundiais</button>
+    <button class="filter" data-filter="Fundamentos">Fundamentos</button>
+    <button class="filter" data-filter="Economia">Economia</button>
+    <button class="filter" data-filter="História">História</button>
+  </div>
+
+  <div class="course-grid" id="courseGrid">
+
+    <article class="course" data-category="Brasil História" data-title="Lula trajetória política governos">
+      <div class="poster">
+        <img
+          src="https://www.gov.br/secretariageral/pt-br/centrais-de-conteudo/biblioteca-da-pr/galeria-dos-ex-presidentes/luiz-inacio-lula-da-silva/foto-oficial.jfif"
+          alt="Foto oficial de Luiz Inácio Lula da Silva"
+          onerror="this.style.display='none';this.nextElementSibling.hidden=false">
+        <div class="fallback" hidden>LS</div>
+        <span class="tag">Brasil · História</span>
+        <button class="favorite" aria-label="Favoritar curso">♡</button>
+      </div>
+      <div class="course-info">
+        <h3>Lula: trajetória e governos</h3>
+        <p>Trajetória política, eleições, mandatos e contexto histórico.</p>
+        <div class="course-footer">
+          <span>6 episódios · Iniciante</span>
+          <button onclick="openCourse('Lula: trajetória e governos')">Ver curso →</button>
+        </div>
+      </div>
+    </article>
+
+    <article class="course" data-category="Brasil História" data-title="Bolsonaro ascensão política">
+      <div class="poster">
+        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Jair_Bolsonaro_2019_Portrait_(3x4_cropped_center).jpg"
+             alt="Retrato de Jair Bolsonaro"
+             onerror="this.style.display='none';this.nextElementSibling.hidden=false">
+        <div class="fallback" hidden>JB</div>
+        <span class="tag">Brasil · História</span>
+        <button class="favorite" aria-label="Favoritar curso">♡</button>
+      </div>
+      <div class="course-info">
+        <h3>Bolsonaro: ascensão política</h3>
+        <p>Carreira parlamentar, Presidência e contexto político.</p>
+        <div class="course-footer">
+          <span>5 episódios · Iniciante</span>
+          <button onclick="openCourse('Bolsonaro: ascensão política')">Ver curso →</button>
+        </div>
+      </div>
+    </article>
+
+    <article class="course" data-category="Mundo História" data-title="Donald Trump comunicação poder">
+      <div class="poster">
+        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Official_Presidential_Portrait_of_President_Donald_J._Trump_(2025).jpg"
+             alt="Retrato oficial de Donald Trump"
+             onerror="this.style.display='none';this.nextElementSibling.hidden=false">
+        <div class="fallback" hidden>DT</div>
+        <span class="tag">Mundo · Liderança</span>
+        <button class="favorite" aria-label="Favoritar curso">♡</button>
+      </div>
+      <div class="course-info">
+        <h3>Donald Trump: comunicação e poder</h3>
+        <p>Comunicação política, discurso e influência internacional.</p>
+        <div class="course-footer">
+          <span>7 episódios · Intermediário</span>
+          <button onclick="openCourse('Donald Trump: comunicação e poder')">Ver curso →</button>
+        </div>
+      </div>
+    </article>
+
+    <article class="course" data-category="Fundamentos Brasil" data-title="Heitor Fonseca ideias debate">
+      <div class="poster">
+        <div class="fallback">HF</div>
+        <span class="tag">Em destaque</span>
+        <button class="favorite" aria-label="Favoritar curso">♡</button>
+      </div>
+      <div class="course-info">
+        <h3>Heitor Fonseca: ideias em debate</h3>
+        <p>Espaço demonstrativo para apresentar ideias e participação pública.</p>
+        <div class="course-footer">
+          <span>4 episódios · Especial</span>
+          <button onclick="openCourse('Heitor Fonseca: ideias em debate')">Ver curso →</button>
+        </div>
+      </div>
+    </article>
+
+    <article class="course" data-category="Fundamentos" data-title="Fundamentos da política">
+      <div class="poster">
+        <div class="fallback">⚖</div>
+        <span class="tag">Essencial</span>
+        <button class="favorite" aria-label="Favoritar curso">♡</button>
+      </div>
+      <div class="course-info">
+        <h3>Fundamentos da política</h3>
+        <p>Estado, democracia, ideologias, instituições e cidadania.</p>
+        <div class="course-footer">
+          <span>8 episódios · Iniciante</span>
+          <button onclick="openCourse('Fundamentos da política')">Ver curso →</button>
+        </div>
+      </div>
+    </article>
+
+    <article class="course" data-category="Economia" data-title="Economia para entender o Brasil">
+      <div class="poster">
+        <div class="fallback">▥</div>
+        <span class="tag">Economia</span>
+        <button class="favorite" aria-label="Favoritar curso">♡</button>
+      </div>
+      <div class="course-info">
+        <h3>Economia para entender o Brasil</h3>
+        <p>Inflação, juros, impostos, orçamento e desenvolvimento.</p>
+        <div class="course-footer">
+          <span>6 episódios · Iniciante</span>
+          <button onclick="openCourse('Economia para entender o Brasil')">Ver curso →</button>
+        </div>
+      </div>
+    </article>
+
+    <article class="course" data-category="História" data-title="História política do Brasil">
+      <div class="poster">
+        <div class="fallback">⌂</div>
+        <span class="tag">História</span>
+        <button class="favorite" aria-label="Favoritar curso">♡</button>
+      </div>
+      <div class="course-info">
+        <h3>História política do Brasil</h3>
+        <p>Da República às instituições e à democracia contemporânea.</p>
+        <div class="course-footer">
+          <span>9 episódios · Iniciante</span>
+          <button onclick="openCourse('História política do Brasil')">Ver curso →</button>
+        </div>
+      </div>
+    </article>
+
+    <article class="course" data-category="Fundamentos" data-title="Oratória comunicação pública">
+      <div class="poster">
+        <div class="fallback">◉</div>
+        <span class="tag">Comunicação</span>
+        <button class="favorite" aria-label="Favoritar curso">♡</button>
+      </div>
+      <div class="course-info">
+        <h3>Oratória e comunicação pública</h3>
+        <p>Argumentação, fala em público e diálogo.</p>
+        <div class="course-footer">
+          <span>5 episódios · Intermediário</span>
+          <button onclick="openCourse('Oratória e comunicação pública')">Ver curso →</button>
+        </div>
+      </div>
+    </article>
+
+  </div>
+  <div class="empty" id="empty">Nenhum curso encontrado. Tente outro termo ou categoria.</div>
+</section>
+
+<section class="section" id="formacao">
+  <div class="section-header">
+    <div>
+      <h2>Continue sua formação</h2>
+      <div class="subtitle">Área de aprendizagem ilustrativa.</div>
+    </div>
+  </div>
+  <div class="progress-card">
+    <div>
+      <h3>Fundamentos da política</h3>
+      <p>Uma trilha introdutória para compreender conceitos e instituições políticas.</p>
+    </div>
+    <div class="progress-right">
+      <div class="progress-label"><span>Progresso demonstrativo</span><strong>36%</strong></div>
+      <div class="bar"><span></span></div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-header">
+    <div>
+      <h2>Uma escola, várias perspectivas</h2>
+      <div class="subtitle">Explore temas, compare argumentos e desenvolva pensamento crítico.</div>
+    </div>
+  </div>
+  <div class="features">
+    <div class="feature">
+      <div class="feature-icon">◎</div>
+      <h3>Aprenda no seu ritmo</h3>
+      <p>Cursos organizados em temporadas e episódios para acompanhar quando quiser.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">◇</div>
+      <h3>Conheça perspectivas</h3>
+      <p>Conteúdos sobre diferentes correntes, contextos históricos e instituições.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">✓</div>
+      <h3>Construa sua formação</h3>
+      <p>Salve cursos, acompanhe aulas e avance do básico ao aprofundamento.</p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="footer-content">
+    <div><strong>PARTIDO PUNHÉTICO ACADEMY</strong><br>Plataforma educacional demonstrativa.</div>
+    <div>Projeto conceitual · Não afiliado às pessoas apresentadas.</div>
+    <div>© 2026 · Protótipo</div>
+  </div>
+</footer>
+
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal-box">
+    <div class="modal-top">
+      <h3 id="modalTitle">Curso</h3>
+      <button class="close" onclick="closeModal()" aria-label="Fechar">×</button>
+    </div>
+    <p>Esta é uma prévia da página do curso. Na versão completa, aqui ficarão as aulas, temporadas, materiais complementares e o acompanhamento de aprendizagem.</p>
+    <div class="episode">
+      <strong>Temporada 1 · Episódio 1</strong>
+      <span>Introdução ao tema e contexto histórico</span>
+    </div>
+    <div class="episode">
+      <strong>Temporada 1 · Episódio 2</strong>
+      <span>Conceitos, ideias e acontecimentos importantes</span>
+    </div>
+    <p class="disclaimer">Conteúdo demonstrativo: cursos, episódios, favoritos e progresso ainda não estão conectados a um banco de dados.</p>
+    <button class="btn primary" onclick="closeModal()">Entendi</button>
+  </div>
+</div>
+
+<script>
+const cards = Array.from(document.querySelectorAll(".course"));
+const searchInput = document.getElementById("search");
+const emptyMessage = document.getElementById("empty");
+let selectedFilter = "Todos";
+
+function filterCourses(){
+  const term = searchInput.value.toLocaleLowerCase("pt-BR").trim();
+  let visibl
